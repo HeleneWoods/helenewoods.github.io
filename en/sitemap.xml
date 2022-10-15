@@ -2,108 +2,108 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
-    <loc>/posts/first-blog/</loc>
+    <loc>https://helenewoods.github.io/posts/first-blog/</loc>
     <lastmod>2022-10-15T18:47:08+08:00</lastmod>
   </url><url>
-    <loc>/</loc>
+    <loc>https://helenewoods.github.io/</loc>
     <lastmod>2022-10-15T18:47:08+08:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
-                href="/pt-br/"
+                href="https://helenewoods.github.io/pt-br/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="/"
+                href="https://helenewoods.github.io/"
                 />
   </url><url>
-    <loc>/posts/</loc>
+    <loc>https://helenewoods.github.io/posts/</loc>
     <lastmod>2022-10-15T18:47:08+08:00</lastmod>
   </url><url>
-    <loc>/about/</loc>
+    <loc>https://helenewoods.github.io/about/</loc>
     <lastmod>2019-02-28T00:00:00+00:00</lastmod>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
-                href="/pt-br/about/"
+                href="https://helenewoods.github.io/pt-br/about/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="/about/"
+                href="https://helenewoods.github.io/about/"
                 />
   </url><url>
-    <loc>/authors/</loc>
+    <loc>https://helenewoods.github.io/authors/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
-                href="/pt-br/authors/"
+                href="https://helenewoods.github.io/pt-br/authors/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="/authors/"
+                href="https://helenewoods.github.io/authors/"
                 />
   </url><url>
-    <loc>/categories/</loc>
+    <loc>https://helenewoods.github.io/categories/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
-                href="/pt-br/categories/"
+                href="https://helenewoods.github.io/pt-br/categories/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="/categories/"
+                href="https://helenewoods.github.io/categories/"
                 />
   </url><url>
-    <loc>/contact/</loc>
+    <loc>https://helenewoods.github.io/contact/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
-                href="/pt-br/contact/"
+                href="https://helenewoods.github.io/pt-br/contact/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="/contact/"
+                href="https://helenewoods.github.io/contact/"
                 />
   </url><url>
-    <loc>/projects/</loc>
+    <loc>https://helenewoods.github.io/projects/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
-                href="/pt-br/projects/"
+                href="https://helenewoods.github.io/pt-br/projects/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="/projects/"
+                href="https://helenewoods.github.io/projects/"
                 />
   </url><url>
-    <loc>/series/</loc>
+    <loc>https://helenewoods.github.io/series/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
-                href="/pt-br/series/"
+                href="https://helenewoods.github.io/pt-br/series/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="/series/"
+                href="https://helenewoods.github.io/series/"
                 />
   </url><url>
-    <loc>/tags/</loc>
+    <loc>https://helenewoods.github.io/tags/</loc>
     <xhtml:link
                 rel="alternate"
                 hreflang="pt-br"
-                href="/pt-br/tags/"
+                href="https://helenewoods.github.io/pt-br/tags/"
                 />
     <xhtml:link
                 rel="alternate"
                 hreflang="en"
-                href="/tags/"
+                href="https://helenewoods.github.io/tags/"
                 />
   </url>
 </urlset>

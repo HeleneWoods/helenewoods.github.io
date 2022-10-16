@@ -8,12 +8,12 @@
     <language>zh</language>
     <lastBuildDate>Sat, 15 Oct 2022 18:47:08 +0800</lastBuildDate><atom:link href="https://helenewoods.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
     <item>
-      <title>First Blog</title>
+      <title>关于个人博客的建成</title>
       <link>https://helenewoods.github.io/posts/first-blog/</link>
       <pubDate>Sat, 15 Oct 2022 18:47:08 +0800</pubDate>
       
       <guid>https://helenewoods.github.io/posts/first-blog/</guid>
-      <description></description>
+      <description>为什么选择Hugo # Hugo是由Go语言实现的，无需搭建复杂的运行环境，几行命令行就能快速生产一个静态网站。 官网提供了多种风格的免费主题，还有优秀网站展示，满足了个人的自定义需求。</description>
     </item>
     
   </channel>

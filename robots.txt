@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://helenewoods.github.io/sitemap.xml

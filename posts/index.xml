@@ -13,7 +13,7 @@
       <pubDate>Sun, 16 Oct 2022 20:04:23 +0800</pubDate>
       
       <guid>https://helenewoods.github.io/posts/git/</guid>
-      <description> </description>
+      <description>git体系 # 由上图可以看出，git主要由两部分组成，一个是远端仓库，一个是本地仓库。 本地仓库又由一下几个部分组成：</description>
     </item>
     
     <item>

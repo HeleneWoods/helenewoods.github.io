@@ -93,10 +93,10 @@
     
     "dateModified": "2022-10-16T20:04:23\u002b08:00",
     
-    
+    "keywords": ["git"],
     
     "mainEntityOfPage": "true",
-    "wordCount": "357"
+    "wordCount": "364"
   }]
   </script>
 
@@ -242,6 +242,68 @@
       </div>
     </header>
     <section class="flex flex-col max-w-full mt-0 prose lg:flex-row dark:prose-invert">
+      
+        <div class="order-first px-0 lg:max-w-xs ltr:lg:pl-8 rtl:lg:pr-8 lg:order-last">
+          <div class="ltr:pl-5 rtl:pr-5 toc lg:sticky lg:top-10 print:hidden">
+            <details open class="mt-0 overflow-hidden rounded-lg rtl:pr-5 ltr:pl-5 ltr:-ml-5 rtl:-mr-5">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer rtl:pr-5 ltr:pl-5 ltr:-ml-5 rtl:-mr-5 text-neutral-800 dark:text-neutral-100 lg:hidden bg-neutral-100 dark:bg-neutral-700"
+  >
+    Table of Contents
+  </summary>
+  <div
+    class="py-2 border-dotted ltr:border-l rtl:border-r rtl:pr-5 ltr:pl-5 ltr:-ml-5 rtl:-mr-5 border-neutral-300 dark:border-neutral-600"
+  >
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#git体系">git体系</a></li>
+    <li><a href="#git工作流程">git工作流程</a>
+      <ul>
+        <li><a href="#git-init">git init</a></li>
+        <li><a href="#git-remote">git remote</a>
+          <ul>
+            <li><a href="#git-push后面的-u是什么意思">git push后面的-u是什么意思</a></li>
+          </ul>
+        </li>
+        <li><a href="#git-clone">git clone</a></li>
+        <li><a href="#git-branch">git branch</a></li>
+        <li><a href="#git-checkout">git checkout</a></li>
+        <li><a href="#git-add">git add</a></li>
+        <li><a href="#git-commit">git commit</a></li>
+        <li><a href="#git-rm">git rm</a></li>
+        <li><a href="#git-push">git push</a></li>
+        <li><a href="#git-pull">git pull</a></li>
+        <li><a href="#git-fetch">git fetch</a></li>
+        <li><a href="#git-merge">git merge</a></li>
+        <li><a href="#git-log">git log</a></li>
+        <li><a href="#git-reset">git reset</a></li>
+        <li><a href="#git-relog">git relog</a></li>
+        <li><a href="#git-revert">git revert</a></li>
+        <li><a href="#git-cherry-pick">git cherry-pick</a></li>
+        <li><a href="#git-tag">git tag</a>
+          <ul>
+            <li><a href="#轻量标签">轻量标签</a></li>
+            <li><a href="#附注标签">附注标签</a></li>
+            <li><a href="#推送标签">推送标签</a></li>
+            <li><a href="#其它命令">其它命令</a></li>
+          </ul>
+        </li>
+        <li><a href="#git-rebase">git rebase</a></li>
+        <li><a href="#stash">stash</a>
+          <ul>
+            <li><a href="#常用命令">常用命令</a></li>
+          </ul>
+        </li>
+      </ul>
+    </li>
+    <li><a href="#参考文章">参考文章</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+          </div>
+        </div>
       
       <div class="min-w-0 min-h-0 max-w-prose">
         <h2 id="git体系" class="relative group">git体系 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#git%e4%bd%93%e7%b3%bb" aria-label="锚点">#</a></span></h2>
@@ -465,6 +527,12 @@ feature的基底变成了M节点，并且feature上的提交合并到了新基�
 <li><code>git stash drop stash@{n}</code>：删除某次储存记录</li>
 <li><code>git stash clear</code>：清除所有stash信息</li>
 </ul>
+<h2 id="参考文章" class="relative group">参考文章 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e5%8f%82%e8%80%83%e6%96%87%e7%ab%a0" aria-label="锚点">#</a></span></h2>
+<ol>
+<li><a href="https://xiaohanglin.site/pages/3139eb">《Git体系介绍+常用命令及其应用场景》</a></li>
+<li><a href="https://www.php.cn/tool/git/493447.html">《git中push -u是什么意思》</a></li>
+<li><a href="https://blog.csdn.net/weixin_42310154/article/details/119004977">《git rebase详解（图解+最简单示例，一次就懂）》</a></li>
+</ol>
 
       </div>
     </section>

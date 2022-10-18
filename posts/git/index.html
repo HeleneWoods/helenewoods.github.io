@@ -96,7 +96,7 @@
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "168"
+    "wordCount": "357"
   }]
   </script>
 
@@ -228,19 +228,10 @@
   <div class="flex flex-row flex-wrap items-center">
     
     
-      <time datetime="2022-10-16 20:04:23 &#43;0800 CST">16 十月 2022</time><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">1 分钟</span>
+      <time datetime="2022-10-16 20:04:23 &#43;0800 CST">16 十月 2022</time><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">2 分钟</span>
     
 
     
-    
-      <span class="pl-2"><span class="flex">
-  <span
-    class="ltr:ml-1 rtl:mr-1 px-1 py-[1px] text-xs font-normal border rounded-md text-primary-700 dark:text-primary-400 border-primary-400 dark:border-primary-600"
-  >
-    草稿
-  </span>
-</span>
-</span>
     
   </div>
 
@@ -277,15 +268,15 @@
 <li>远端分支本地副本：执行pull、fetch、push指令时都会往这里更新，它是远程仓库各分支数据在本地的一个副本，<code>.git</code>文件下的<code>refs/remotes</code>目录可以查看到具体信息</li>
 </ul>
 <h2 id="git工作流程" class="relative group">git工作流程 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#git%e5%b7%a5%e4%bd%9c%e6%b5%81%e7%a8%8b" aria-label="锚点">#</a></span></h2>
-<p>日常工作中，我们常用流程大概是这样：
-在github上建一个新的远程库，或者远程库中已经有数据了</p>
+<p>日常工作中，我们常用流程大概是这样：</p>
+<p>在github上建一个新的远程库，或者远程库中已经有数据了</p>
 <h3 id="git-init" class="relative group">git init <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#git-init" aria-label="锚点">#</a></span></h3>
-<p>这时本地还没有库，我们先用<code>git init</code>命令初始化一个git仓库
-现在远程、本地都有仓库了，但是二者没有任何关联，将他们联系起来有两种情况</p>
+<p>这时本地还没有库，我们先用<code>git init</code>命令初始化一个git仓库</p>
+<p>现在远程、本地都有仓库了，但是二者没有任何关联，将他们联系起来有两种情况</p>
 <h3 id="git-remote" class="relative group">git remote <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#git-remote" aria-label="锚点">#</a></span></h3>
 <p>如果远程仓库是新建的，没有任何数据，我们需要使用<code>git remote add origin xxx.git</code>添加一个远程版本库到本地，
-相应的<code>git remote rm</code>命令是删除远程版本库关联。
-然后使用<code>git push -u origin master</code>把当前仓库的master分支和远端仓库的master分支关联起来，这样后续我们push或者pull的时候就可以直接输<code>git push/pull</code>，而不是<code>git push\pull origin master</code>。</p>
+相应的<code>git remote rm</code>命令是删除远程版本库关联。</p>
+<p>然后使用<code>git push -u origin master</code>把当前仓库的master分支和远端仓库的master分支关联起来，这样后续我们push或者pull的时候就可以直接输<code>git push/pull</code>，而不是<code>git push\pull origin master</code>。</p>
 <h4 id="git-push后面的-u是什么意思" class="relative group">git push后面的-u是什么意思 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#git-push%e5%90%8e%e9%9d%a2%e7%9a%84-u%e6%98%af%e4%bb%80%e4%b9%88%e6%84%8f%e6%80%9d" aria-label="锚点">#</a></span></h4>
 <p>给<code>git push</code>加一个<code>-u</code>参数，其实就相当于给本地分支定义一个上游分支，让git知道当前操作的是哪条分支。
 相当于同时执行了<code>git push origin master</code>和<code>git branch --set-upstream master origin/master</code>
@@ -306,9 +297,9 @@
 
 大概意思是没找到当前分支</p>
 <h3 id="git-clone" class="relative group">git clone <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#git-clone" aria-label="锚点">#</a></span></h3>
-<p>如果远程库已经有数据了，可以直接在本地库使用<code>git clone xxx.git</code>命令将远程库克隆到本地
-这时我们默认是在master分支上
-当我们在上面的命令行后添加参数<code>git clone xxx.git -b branch</code>时，会自动给我切换到branch分支上</p>
+<p>如果远程库已经有数据了，可以直接在本地库使用<code>git clone xxx.git</code>命令将远程库克隆到本地</p>
+<p>这时我们默认是在master分支上</p>
+<p>当我们在上面的命令行后添加参数<code>git clone xxx.git -b branch</code>时，会自动给我切换到branch分支上</p>
 <h3 id="git-branch" class="relative group">git branch <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#git-branch" aria-label="锚点">#</a></span></h3>
 <p>关于分支的操作有这些：</p>
 <ul>
@@ -335,17 +326,145 @@
 对于没有被提交过的文件，还是需要add后才能被commit到本地分支上去</li>
 </ul>
 <p>一般工作中更多的是使用<code>git commit -m 'do sth'</code>这个命令，也可以使用<code>git commit -am</code>命令，相当于同时执行了<code>git add</code>和<code>git commit</code>。</p>
+<h3 id="git-rm" class="relative group">git rm <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#git-rm" aria-label="锚点">#</a></span></h3>
+<p>有添加就有删除，当我们不小心把不需要提交的文件提交到本地仓库了，可以使用<code>git rm [filename]</code>将其删除。</p>
+<p><code>git rm -r dist</code>可以直接删除一个目录。</p>
 <h3 id="git-push" class="relative group">git push <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#git-push" aria-label="锚点">#</a></span></h3>
-<p>接下来就要正是把代码推送到远程仓库里去了。
-如果我们至始至终都在master分支上工作，并且之前初始化本地仓库时运行了<code>git push -u origin master</code>命令，现在只需要输入<code>git push</code>指令就ok了。
-如果我们是要将本地创建的分支推送到远端，就需要使用<code>git push --set-upstream origin branch1</code>将分支推上去并关联起来。
-有没有觉得这行代码很熟悉？上面git pull的报错图推荐的指令是<code>git branch --set-upstream-to=origin/&lt;branch&gt; test</code>，就是将本地分支和远程分支关联起来。
-如果远程仓库中已经有了这个分支时，本地代码没有和远程代码冲突的情况下会直接将本地改动提交上去；
-如果出现冲突，就会提示你先把远端分支中的代码pull下来解决冲突，然后再推上去。</p>
+<p>接下来就要正是把代码推送到远程仓库里去了。</p>
+<p>如果我们至始至终都在master分支上工作，并且之前初始化本地仓库时运行了<code>git push -u origin master</code>命令，现在只需要输入<code>git push</code>指令就ok了。</p>
+<p>如果我们是要将本地创建的分支推送到远端，就需要使用<code>git push --set-upstream origin branch1</code>将分支推上去并关联起来。</p>
+<p>有没有觉得这行代码很熟悉？上面git pull的报错图推荐的指令是<code>git branch --set-upstream-to=origin/&lt;branch&gt; test</code>，就是将本地分支和远程分支关联起来。</p>
+<p>如果远程仓库中已经有了这个分支时，本地代码没有和远程代码冲突的情况下会直接将本地改动提交上去；</p>
+<p>如果出现冲突，就会提示你先把远端分支中的代码pull下来解决冲突，然后再推上去。</p>
 <h3 id="git-pull" class="relative group">git pull <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#git-pull" aria-label="锚点">#</a></span></h3>
-<p>当本地分支和远端分支已经建立联系了，我们只需要<code>git pull</code>就能把代码拉到本地，但如果出现上面的情况，
-两端没能建立联系，就需要使用<code>git pull origin branch1</code>拉取指定的远端分支到本地分支。
-冲突解决后再运行<code>git push --set-upstream origin branch1</code>。</p>
+<p>当本地分支和远端分支已经建立联系了，我们只需要<code>git pull</code>就能把代码拉到本地，但如果出现上面的情况，</p>
+<p>两端没能建立联系，就需要使用<code>git pull origin branch1</code>拉取指定的远端分支到本地分支。</p>
+<p>冲突解决后再运行<code>git push --set-upstream origin branch1</code>。</p>
+<h3 id="git-fetch" class="relative group">git fetch <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#git-fetch" aria-label="锚点">#</a></span></h3>
+<p>当远端仓库对应分支的代码有了新的变更，而当前工作区的代码还没有修改完成，就可使用<code>git fetch</code>将远端代码先拉到本地仓库</p>
+<h3 id="git-merge" class="relative group">git merge <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#git-merge" aria-label="锚点">#</a></span></h3>
+<p>等本地代码写完并提交到本地仓库了，需要合并一下远端分支的更改，就可使用<code>git merge origin/[branchname]</code>。
+也可以将指定分支的代码合并到当前分支：</p>
+<ol>
+<li><code>git checkout master</code>切换到master分支，<code>git pull</code>拉取最新代码</li>
+<li>切回开发分支，执行<code>git merge master</code>合并master代码到开发分支中
+和上面的代码实现的效果是一样的，只是所有修改都在开发分支里了，master分支上并没有我们提交的修改。
+等修改测试后没有问题可以上线了，再切换到master分支，用<code>git merge origin/[branch1]</code>把分支合并到主分支上，然后<code>git push origin master</code></li>
+</ol>
+<h3 id="git-log" class="relative group">git log <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#git-log" aria-label="锚点">#</a></span></h3>
+<p>提交代码后都可以通过这个指令看到提交记录，这个主要是用来进行代码版本的回滚等操作的</p>
+<h3 id="git-reset" class="relative group">git reset <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#git-reset" aria-label="锚点">#</a></span></h3>
+<p>这个指令后面跟着一个参数和一个版本信息。
+在你查看git log的时候，会有一行信息大概长这样</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">commit e55c4d273141edff401cbc6642fe21e14681c258 <span class="o">(</span>HEAD -&gt; branch1, origin/branch1<span class="o">)</span>
+</span></span></code></pre></div><p>commit后面这一串数字就是这个版本信息，一般都很长，我们可以只复制前7位。
+git reset有三个参数：</p>
+<ul>
+<li><code>--soft</code>：如果你已经将改动commit到本地仓库，<code>git reset --soft e55c4d2</code>可以让本地仓库的内容回到<code>e55c4d2</code>这一次提交，但暂存区和工作区的内容还在</li>
+<li><code>--mixed</code>：默认参数，暂存区的内容也会回到指定回滚的版本，工作区的改动还在</li>
+<li><code>--hard</code>：直接连工作区的代码都回滚到指定版本，之前所有改动都没有了</li>
+</ul>
+<h3 id="git-relog" class="relative group">git relog <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#git-relog" aria-label="锚点">#</a></span></h3>
+<p>当你reset之后，在看git log会发现，回滚版本后的所有提交历史都不见了，最新提交记录就是你此时回滚到的版本。
+但你发现之后的代码提交中有一部分你依然需要，就可以使用<code>git relog</code>看到所有的操作记录了，然后就可以CV需要的代码了。</p>
+<h3 id="git-revert" class="relative group">git revert <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#git-revert" aria-label="锚点">#</a></span></h3>
+<p>这是一个温和版的reset。
+reset相当于时间穿越，让你穿越到指定的提交，所以git log看不到reset版本后的记录；
+而resvet是产生一个新的提交，把你改动的代码都恢复到指定版本的样子。</p>
+<h3 id="git-cherry-pick" class="relative group">git cherry-pick <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#git-cherry-pick" aria-label="锚点">#</a></span></h3>
+<p>一个不常用，但可以救人于水火的功能。
+我是小白的时候，在修改代码时总是会忘记切换分支，直接就在master上改了，如果代码已经被commit到本地仓库，就可以<code>git log</code>查看提交记录，复制本应该在分支上提交的commitId，如果有多个提交就全都复制下来，然后切换到需要修改的分支上，使用<code>git cherry-pick master commitId1 commitId2 ...</code>指令。
+之后别忘了在master分支上用reset或者revert回滚一下代码。</p>
+<h3 id="git-tag" class="relative group">git tag <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#git-tag" aria-label="锚点">#</a></span></h3>
+<p>如果一个项目一直有人维护、更新迭代，就会给它打上标签标注版本。
+标签有两种：轻量标签和附注标签</p>
+<h4 id="轻量标签" class="relative group">轻量标签 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e8%bd%bb%e9%87%8f%e6%a0%87%e7%ad%be" aria-label="锚点">#</a></span></h4>
+<p>创建指令：<code>git tag v1.0.0</code>
+一旦创建了标签，就基于当前分支创建了一个不可变的分支，当你切换到这个分支并做任何修改并提交，都无法在分支历史中找到记录，它会帮你生成一个独立提交，commitId可以在如图左下角查看到
+
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/tag-commit.png" alt="git" />
+      
+    </figure>
+  
+
+
+你可以通过commitId切换到本次提交，如果需要保留当前提交，可以使用<code>git switch -c &lt;new-branch-name&gt;</code>创建一个新分支，
+否则直接<code>git switch -</code>丢弃这次提交。</p>
+<h4 id="附注标签" class="relative group">附注标签 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e9%99%84%e6%b3%a8%e6%a0%87%e7%ad%be" aria-label="锚点">#</a></span></h4>
+<p>创建指令：<code>git tag -a v1.0.1 -m &quot;发布正式版 1.0.1&quot;</code>
+比轻量标签多了两个参数，同时也能保留更多信息，它是存储在Git数据库中的一个完整对象。
+<code>git show</code>可以看到标签信息。</p>
+<h4 id="推送标签" class="relative group">推送标签 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e6%8e%a8%e9%80%81%e6%a0%87%e7%ad%be" aria-label="锚点">#</a></span></h4>
+<p><code>git push origin tagName</code>
+创建完标签就能把它推送到远端了。</p>
+<h4 id="其它命令" class="relative group">其它命令 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e5%85%b6%e5%ae%83%e5%91%bd%e4%bb%a4" aria-label="锚点">#</a></span></h4>
+<ul>
+<li><code>git tag</code>：查看标签</li>
+<li><code>git tag -l v1.0.1</code>：筛选标签</li>
+<li><code>git tag -d v1.0.1</code>：删除本地标签</li>
+<li><code>git push origin --delete v1.0.2</code>：删除远程标签</li>
+</ul>
+<h3 id="git-rebase" class="relative group">git rebase <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#git-rebase" aria-label="锚点">#</a></span></h3>
+<p>rebase常常会和merge作比较，从字面意义上看，rebase就是改变基准库。
+假设有两个分支，一个master，一个feature
+
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/rebase-before.png" alt="rebase1" />
+      
+    </figure>
+  
+
+
+由上图可以看出feature是基于master分支的B节点创建的，之后，在master分支上有一个新提交M，而feature上有两个新提交，C和D。
+当我们输入以下指令</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-shell" data-lang="shell"><span class="line"><span class="cl">git checkout feature
+</span></span><span class="line"><span class="cl">git rebase master
+</span></span></code></pre></div><p>提交节点就变成了这样
+
+
+
+
+  
+  
+  
+    <figure>
+      <img class="my-0 rounded-md" src="/images/rebase-after.png" alt="rebase2" />
+      
+    </figure>
+  
+
+
+feature的基底变成了M节点，并且feature上的提交合并到了新基底后面。
+如果在rebase时，master分支上没有新提交，那么就不存在换基，效果跟merge就一样了，只是merge指令会多一条记录merge操作的提交记录。
+实际工作中建议还是使用merge，因为日志会把每一次提交都记录下来，而rebase会让日志呈线性显示，无法得知最初支线是从哪个节点拉取出来的。</p>
+<h3 id="stash" class="relative group">stash <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#stash" aria-label="锚点">#</a></span></h3>
+<p>最后说一个特殊区域，git本地除了工作区、暂存区和本地分支外，还有个储存区。
+一般我使用它的场景是，
+在一个分支工作了一会，突然需要切换到另一个分支上去，又不好把未完成的代码推上去，
+就先<code>git stash</code>把变更保存在本地，
+等另一个分支的问题解决之后，切换到之前的分支<code>git stash pop</code>把最新stash的更改加回来。
+但并不是很推荐这样用，因为一旦忘记就麻烦了。</p>
+<h4 id="常用命令" class="relative group">常用命令 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e5%b8%b8%e7%94%a8%e5%91%bd%e4%bb%a4" aria-label="锚点">#</a></span></h4>
+<ul>
+<li><code>git stash save 'xxx'</code>：存储变更，如果直接<code>git stash</code>会自动分配储存记录标记</li>
+<li><code>git stash list</code>：查看储存区的所有提交列表</li>
+<li><code>git stash pop</code>：弹出并引用最近一次存储区的代码提交</li>
+<li><code>git stash drop stash@{n}</code>：删除某次储存记录</li>
+<li><code>git stash clear</code>：清除所有stash信息</li>
+</ul>
 
       </div>
     </section>
@@ -468,6 +587,19 @@
     </footer>
   </article>
 
+        
+          <div
+            class="absolute top-[100vh] ltr:right-0 rtl:left-0 w-12 pointer-events-none bottom-0"
+          >
+            <a
+              href="#the-top"
+              class="w-12 h-12 sticky pointer-events-auto top-[calc(100vh-5.5rem)] bg-neutral/50 dark:bg-neutral-800/50 backdrop-blur rounded-full text-xl flex items-center justify-center text-neutral-700 dark:text-neutral hover:text-primary-600 dark:hover:text-primary-400"
+              aria-label="Scroll to top"
+              title="Scroll to top"
+            >
+              &uarr;
+            </a>
+          </div>
         
       </main><footer class="py-10 print:hidden">
   

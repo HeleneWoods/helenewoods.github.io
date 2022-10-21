@@ -6,14 +6,23 @@
     <description>Recent content on HeleneWoods</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Sun, 16 Oct 2022 20:04:23 +0800</lastBuildDate><atom:link href="https://helenewoods.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Fri, 21 Oct 2022 12:37:47 +0800</lastBuildDate><atom:link href="https://helenewoods.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>JS之组件封装</title>
+      <link>https://helenewoods.github.io/posts/js/</link>
+      <pubDate>Fri, 21 Oct 2022 12:37:47 +0800</pubDate>
+      
+      <guid>https://helenewoods.github.io/posts/js/</guid>
+      <description>通过实现和封装一个轮播图组件，由浅入深地理解什么才是优秀的js代码。</description>
+    </item>
+    
     <item>
       <title>Git查漏补缺</title>
       <link>https://helenewoods.github.io/posts/git/</link>
       <pubDate>Sun, 16 Oct 2022 20:04:23 +0800</pubDate>
       
       <guid>https://helenewoods.github.io/posts/git/</guid>
-      <description>git体系 # 由上图可以看出，git主要由两部分组成，一个是远端仓库，一个是本地仓库。 本地仓库又由一下几个部分组成：</description>
+      <description>大致介绍Git的构成和工作流程。在流程介绍和部分场景介绍中穿插对Git指令的讲解。</description>
     </item>
     
     <item>
@@ -22,7 +31,7 @@
       <pubDate>Sat, 15 Oct 2022 18:47:08 +0800</pubDate>
       
       <guid>https://helenewoods.github.io/posts/first-blog/</guid>
-      <description>为什么选择Hugo # Hugo是由Go语言实现的，无需搭建复杂的运行环境，几行命令行就能快速生产一个静态网站。 官网提供了多种风格的免费主题，还有优秀网站展示，满足了个人的自定义需求。</description>
+      <description>自从typora收费之后，就没有找到一个用着存粹又得心应手的笔记软件了，干脆自己搞一个博客玩玩。本文简单记录了使用Hugo建博的过程。</description>
     </item>
     
     <item>

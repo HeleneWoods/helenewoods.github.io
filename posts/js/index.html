@@ -747,9 +747,9 @@
 由上图可以看出，通用组件的设计中包含两个方法:</p>
 <ul>
 <li><code>registerPlugins(...plugins)</code>：注册插件</li>
-<li><code>render()</code>：渲染html
-抽象出来的通用组件代码如下：</li>
+<li><code>render()</code>：渲染html</li>
 </ul>
+<p>抽象出来的通用组件代码如下：</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kr">class</span> <span class="nx">Component</span><span class="p">{</span>
 </span></span><span class="line"><span class="cl">  <span class="nx">constructor</span><span class="p">(</span><span class="nx">id</span><span class="p">,</span> <span class="nx">opts</span> <span class="o">=</span> <span class="p">{</span><span class="nx">name</span><span class="p">,</span> <span class="nx">data</span><span class="o">:</span><span class="p">[]}){</span>
 </span></span><span class="line"><span class="cl">    <span class="k">this</span><span class="p">.</span><span class="nx">container</span> <span class="o">=</span> <span class="nb">document</span><span class="p">.</span><span class="nx">getElementById</span><span class="p">(</span><span class="nx">id</span><span class="p">);</span>

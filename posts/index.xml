@@ -6,7 +6,16 @@
     <description>Recent content in Posts on HeleneWoods</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Fri, 21 Oct 2022 12:37:47 +0800</lastBuildDate><atom:link href="https://helenewoods.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Sat, 22 Oct 2022 15:17:33 +0800</lastBuildDate><atom:link href="https://helenewoods.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>大白话版：什么是BFC</title>
+      <link>https://helenewoods.github.io/posts/bfc/</link>
+      <pubDate>Sat, 22 Oct 2022 15:17:33 +0800</pubDate>
+      
+      <guid>https://helenewoods.github.io/posts/bfc/</guid>
+      <description>什么是BFC？问到这个问题无非就是让你答这几个点：BFC是什么，怎么触发BFC，BFC能干什么。几个例子让你彻底搞懂答案。</description>
+    </item>
+    
     <item>
       <title>JS之组件封装</title>
       <link>https://helenewoods.github.io/posts/js/</link>

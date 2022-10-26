@@ -6,7 +6,16 @@
     <description>Recent content on HeleneWoods</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Sat, 22 Oct 2022 15:17:33 +0800</lastBuildDate><atom:link href="https://helenewoods.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Wed, 26 Oct 2022 14:10:55 +0800</lastBuildDate><atom:link href="https://helenewoods.github.io/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>一篇文章搞懂this</title>
+      <link>https://helenewoods.github.io/posts/this/</link>
+      <pubDate>Wed, 26 Oct 2022 14:10:55 +0800</pubDate>
+      
+      <guid>https://helenewoods.github.io/posts/this/</guid>
+      <description>介绍this绑定的四个规则，彻底弄懂this的指向问题。</description>
+    </item>
+    
     <item>
       <title>大白话版：什么是BFC</title>
       <link>https://helenewoods.github.io/posts/bfc/</link>

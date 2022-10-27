@@ -6,7 +6,16 @@
     <description>Recent content in Posts on HeleneWoods</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
-    <lastBuildDate>Wed, 26 Oct 2022 14:10:55 +0800</lastBuildDate><atom:link href="https://helenewoods.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <lastBuildDate>Thu, 27 Oct 2022 13:49:31 +0800</lastBuildDate><atom:link href="https://helenewoods.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>关于Vue的深刻以及不深刻理解</title>
+      <link>https://helenewoods.github.io/posts/vue/</link>
+      <pubDate>Thu, 27 Oct 2022 13:49:31 +0800</pubDate>
+      
+      <guid>https://helenewoods.github.io/posts/vue/</guid>
+      <description>从我学完js后就开始接触vue，可以说我的前段生涯都是vue给的，但是就算这样我也不敢说自己很懂vue，姑且写一篇文来记录一下目前为止我对vue的理解吧。</description>
+    </item>
+    
     <item>
       <title>一篇文章搞懂this</title>
       <link>https://helenewoods.github.io/posts/this/</link>

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
-    <title>Posts on HeleneWoods</title>
+    <title>Posts on HeleneWoods的主页</title>
     <link>https://helenewoods.github.io/posts/</link>
-    <description>Recent content in Posts on HeleneWoods</description>
+    <description>Recent content in Posts on HeleneWoods的主页</description>
     <generator>Hugo -- gohugo.io</generator>
     <language>zh</language>
     <lastBuildDate>Thu, 27 Oct 2022 13:49:31 +0800</lastBuildDate><atom:link href="https://helenewoods.github.io/posts/index.xml" rel="self" type="application/rss+xml" />
@@ -13,7 +13,7 @@
       <pubDate>Thu, 27 Oct 2022 13:49:31 +0800</pubDate>
       
       <guid>https://helenewoods.github.io/posts/vue/</guid>
-      <description>从我学完js后就开始接触vue，可以说我的前段生涯都是vue给的，但是就算这样我也不敢说自己很懂vue，姑且写一篇文来记录一下目前为止我对vue的理解吧。</description>
+      <description>从我学完js后就开始接触vue，可以说我的前端生涯都是vue给的，但是就算这样我也不敢说自己很懂vue，姑且写一篇文来记录一下目前为止我对vue的理解吧。</description>
     </item>
     
     <item>

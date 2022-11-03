@@ -96,7 +96,7 @@
     
     
     "mainEntityOfPage": "true",
-    "wordCount": "100"
+    "wordCount": "113"
   }]
   </script>
 
@@ -302,7 +302,11 @@
         <li><a href="#生成站点">生成站点</a></li>
         <li><a href="#创建文章">创建文章</a></li>
         <li><a href="#设置主题">设置主题</a></li>
-        <li><a href="#本地运行">本地运行</a></li>
+        <li><a href="#本地运行">本地运行</a>
+          <ul>
+            <li><a href="#关于这块有一个坑">关于这块有一个坑</a></li>
+          </ul>
+        </li>
         <li><a href="#部署到服务器">部署到服务器</a></li>
       </ul>
     </li>
@@ -327,6 +331,8 @@ windows系统安装完Hugo后需要配置环境变量，在命令行中输入<co
 <h3 id="生成站点" class="relative group">生成站点 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e7%94%9f%e6%88%90%e7%ab%99%e7%82%b9" aria-label="锚点">#</a></span></h3>
 <p>输入命令行</p>
 <pre tabindex="0"><code>hugo new [网站名称] [本地存放目录地址]
+</code></pre><p>Mac就在想要创建博客的根目录下输入指令</p>
+<pre tabindex="0"><code>hugo new site [名称]
 </code></pre><p>就可在你想要的目录中生成网站文件。</p>
 <h3 id="创建文章" class="relative group">创建文章 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e5%88%9b%e5%bb%ba%e6%96%87%e7%ab%a0" aria-label="锚点">#</a></span></h3>
 <pre tabindex="0"><code>hugo new post/first.md
@@ -352,6 +358,8 @@ git submodule add -b stable https://github.com/jpanther/congo.git themes/congo
 <pre tabindex="0"><code>hugo server --theme=congo --buildDrafts
 </code></pre><p><code>theme=congo</code>是设置主题，<code>buildDrafts</code>是指生成草稿，还记得前面文章中有个参数<code>draft: true</code>吗？如果没有这个命令，是看不到草稿文章的，需要将<code>draft</code>设为<code>false</code>才能显示在博客上。
 然后就可以在浏览器打开<code>http://localhost:1313</code>预览本地博客了。</p>
+<h4 id="关于这块有一个坑" class="relative group">关于这块有一个坑 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e5%85%b3%e4%ba%8e%e8%bf%99%e5%9d%97%e6%9c%89%e4%b8%80%e4%b8%aa%e5%9d%91" aria-label="锚点">#</a></span></h4>
+<p>由于主题文件都是通过<code>git submodule</code>添加进来的子模块，当我从git上clone博客项目后再<code>hugo server</code>本地运行会报错，这时能看到主题文件夹里是空的，因为主题文件不会自动下载下来，只要<code>git submodule update --recursive</code>重新下载主题就好了。</p>
 <h3 id="部署到服务器" class="relative group">部署到服务器 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e9%83%a8%e7%bd%b2%e5%88%b0%e6%9c%8d%e5%8a%a1%e5%99%a8" aria-label="锚点">#</a></span></h3>
 <p>作为一个程序员，能免费的东西绝不花钱。这里我们就能用github提供的免费服务器来部署我们的博客，首先得在github上建一个新的库，库的名称设为<code>[github用户名(全小写)].github.io.git</code>。
 在网站存放的根目录执行命令：</p>

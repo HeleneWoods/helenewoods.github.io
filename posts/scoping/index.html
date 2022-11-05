@@ -1,0 +1,932 @@
+
+
+<!DOCTYPE html>
+<html
+  lang="zh"
+  dir="ltr"
+  class="scroll-smooth"
+  data-default-appearance="light"
+  data-auto-appearance="true"
+><head>
+  <meta charset="utf-8" />
+  
+    <meta http-equiv="content-language" content="zh" />
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+  
+  <title>JS基础之作用域 &middot; HeleneWoods的主页</title>
+    <meta name="title" content="JS基础之作用域 &middot; HeleneWoods的主页" />
+  
+  <meta name="description" content="Helene Woods的博客" />
+  
+  
+  
+  <link rel="canonical" href="https://helenewoods.github.io/posts/scoping/" />
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  <link
+    type="text/css"
+    rel="stylesheet"
+    href="/css/main.bundle.min.52777ff8d016fd2f74608d74ece622594b43e41d4cee46c90249709aa696575a383a64527e4d6f62c1df58c7e78ed891aed8d29939b72b804754307b7c794c5f.css"
+    integrity="sha512-Und/&#43;NAW/S90YI107OYiWUtD5B1M7kbJAklwmqaWV1o4OmRSfk1vYsHfWMfnjtiRrtjSmTm3K4BHVDB7fHlMXw=="
+  />
+  
+  
+  <script type="text/javascript" src="/js/appearance.min.badab316c9287a5a42a843e4eb45da65bb3d194a5a0f5fa4a3e516160e67df0b8c65f4f19a8e146436e29d583699e6cb41d6bbe99e05e1dbaa877763bad9f8e2.js" integrity="sha512-utqzFskoelpCqEPk60XaZbs9GUpaD1&#43;ko&#43;UWFg5n3wuMZfTxmo4UZDbinVg2mebLQda76Z4F4duqh3djutn44g=="></script>
+  
+  
+  
+  
+  
+  
+    <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
+    <link rel="manifest" href="/site.webmanifest" />
+  
+  
+  
+  
+  
+  
+  
+  <meta property="og:title" content="JS基础之作用域" />
+<meta property="og:description" content="一步步讲解什么是执行上下文、变量对象、作用域链，从而对作用域有个比较深入的了解，然后通过对作用域的深层理解来解释什么是闭包。" />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://helenewoods.github.io/posts/scoping/" /><meta property="article:section" content="posts" />
+<meta property="article:published_time" content="2022-11-04T15:46:35+08:00" />
+<meta property="article:modified_time" content="2022-11-04T15:46:35+08:00" /><meta property="og:site_name" content="HeleneWoods的主页" />
+
+
+  <meta name="twitter:card" content="summary"/>
+<meta name="twitter:title" content="JS基础之作用域"/>
+<meta name="twitter:description" content="一步步讲解什么是执行上下文、变量对象、作用域链，从而对作用域有个比较深入的了解，然后通过对作用域的深层理解来解释什么是闭包。"/>
+
+  
+  <script type="application/ld+json">
+  [{
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "articleSection": "Posts",
+    "name": "JS基础之作用域",
+    "headline": "JS基础之作用域",
+    
+    "abstract": "一步步讲解什么是执行上下文、变量对象、作用域链，从而对作用域有个比较深入的了解，然后通过对作用域的深层理解来解释什么是闭包。",
+    "inLanguage": "zh",
+    "url" : "https:\/\/helenewoods.github.io\/posts\/scoping\/",
+    "author" : {
+      "@type": "Person",
+      "name": "Helene Woods"
+    },
+    "copyrightYear": "2022",
+    "dateCreated": "2022-11-04T15:46:35\u002b08:00",
+    "datePublished": "2022-11-04T15:46:35\u002b08:00",
+    
+    "dateModified": "2022-11-04T15:46:35\u002b08:00",
+    
+    
+    
+    "mainEntityOfPage": "true",
+    "wordCount": "697"
+  }]
+  </script>
+
+
+  
+  <meta name="author" content="Helene Woods" />
+  
+    
+      <link href="mailto:396293674@qq.com" rel="me" />
+    
+      <link href="https://helenewoods.github.io/" rel="me" />
+    
+      <link href="https://github.com/HeleneWoods" rel="me" />
+    
+  
+  
+  
+
+
+
+
+
+
+  
+  
+  
+  
+
+
+  
+  
+</head>
+<body
+    class="flex flex-col h-screen px-6 m-auto text-lg leading-7 bg-neutral text-neutral-900 sm:px-14 md:px-24 lg:px-32 dark:bg-neutral-800 dark:text-neutral max-w-7xl"
+  >
+    <div id="the-top" class="absolute flex self-center">
+      <a
+        class="px-3 py-1 text-sm -translate-y-8 rounded-b-lg bg-primary-200 dark:bg-neutral-600 focus:translate-y-0"
+        href="#main-content"
+        ><span class="font-bold ltr:pr-2 rtl:pl-2 text-primary-600 dark:text-primary-400"
+          >&darr;</span
+        >Skip to main content</a
+      >
+    </div>
+    
+    
+      <header class="py-6 font-semibold sm:py-10 text-neutral-900 dark:text-neutral print:hidden">
+  <nav class="flex justify-between">
+    
+    <div>
+      
+        <a
+          class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+          rel="me"
+          href="/"
+          >HeleneWoods的主页</a
+        >
+      
+
+    </div>
+    
+    
+      <ul class="flex flex-col list-none ltr:text-right rtl:text-left sm:flex-row">
+        
+          
+            <li class="mb-1 sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+              <a
+                class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+                href="/posts/"
+                title="Posts"
+                >博文</a
+              >
+            </li>
+          
+            <li class="mb-1 sm:mb-0 ltr:sm:mr-7 ltr:sm:last:mr-0 rtl:sm:ml-7 rtl:sm:last:ml-0">
+              <a
+                class="decoration-primary-500 hover:underline hover:decoration-2 hover:underline-offset-2"
+                href="/about/"
+                title="关于我"
+                >关于我</a
+              >
+            </li>
+          
+        
+        
+      </ul>
+    
+  </nav>
+</header>
+
+    
+    <div class="relative flex flex-col grow">
+      <main id="main-content" class="grow">
+        
+  <article>
+    <header class="max-w-prose">
+      
+        <ol class="text-sm text-neutral-500 dark:text-neutral-400 print:hidden">
+  
+  
+    
+  
+    
+  
+  <li class="inline hidden">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/"
+      >HeleneWoods的主页</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline ">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/posts/"
+      >Posts</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+  
+  <li class="inline hidden">
+    <a
+      class="hover:underline decoration-neutral-300 dark:underline-neutral-600"
+      href="/posts/scoping/"
+      >JS基础之作用域</a
+    ><span class="px-1 text-primary-500">/</span>
+  </li>
+
+</ol>
+
+
+      
+      <h1 class="mt-0 text-4xl font-extrabold text-neutral-900 dark:text-neutral">
+        JS基础之作用域
+      </h1>
+      <div class="mt-8 mb-12 text-base text-neutral-500 dark:text-neutral-400 print:hidden">
+        
+
+
+
+
+
+  
+  
+
+
+
+  
+
+  
+  
+    
+  
+
+  
+
+  
+
+  
+    
+  
+
+  
+
+
+  <div class="flex flex-row flex-wrap items-center">
+    
+    
+      <time datetime="2022-11-04 15:46:35 &#43;0800 CST">4 十一月 2022</time><span class="px-2 text-primary-500">&middot;</span><span title="预计阅读">4 分钟</span>
+    
+
+    
+    
+  </div>
+
+  
+  
+
+
+      </div>
+    </header>
+    <section class="flex flex-col max-w-full mt-0 prose lg:flex-row dark:prose-invert">
+      
+        <div class="order-first px-0 lg:max-w-xs ltr:lg:pl-8 rtl:lg:pr-8 lg:order-last">
+          <div class="ltr:pl-5 rtl:pr-5 toc lg:sticky lg:top-10 print:hidden">
+            <details open class="mt-0 overflow-hidden rounded-lg rtl:pr-5 ltr:pl-5 ltr:-ml-5 rtl:-mr-5">
+  <summary
+    class="block py-1 text-lg font-semibold cursor-pointer rtl:pr-5 ltr:pl-5 ltr:-ml-5 rtl:-mr-5 text-neutral-800 dark:text-neutral-100 lg:hidden bg-neutral-100 dark:bg-neutral-700"
+  >
+    Table of Contents
+  </summary>
+  <div
+    class="py-2 border-dotted ltr:border-l rtl:border-r rtl:pr-5 ltr:pl-5 ltr:-ml-5 rtl:-mr-5 border-neutral-300 dark:border-neutral-600"
+  >
+    <nav id="TableOfContents">
+  <ul>
+    <li><a href="#什么是作用域">什么是作用域</a>
+      <ul>
+        <li><a href="#静态作用域与动态作用域">静态作用域与动态作用域</a></li>
+      </ul>
+    </li>
+    <li><a href="#执行上下文">执行上下文</a>
+      <ul>
+        <li><a href="#执行上下文栈">执行上下文栈</a></li>
+      </ul>
+    </li>
+    <li><a href="#变量对象">变量对象</a>
+      <ul>
+        <li><a href="#全局上下文">全局上下文</a></li>
+        <li><a href="#函数上下文">函数上下文</a></li>
+        <li><a href="#执行流程">执行流程</a>
+          <ul>
+            <li><a href="#进入执行上下文">进入执行上下文</a></li>
+            <li><a href="#代码执行">代码执行</a></li>
+          </ul>
+        </li>
+        <li><a href="#思考题">思考题</a></li>
+      </ul>
+    </li>
+    <li><a href="#作用域链">作用域链</a>
+      <ul>
+        <li><a href="#创建流程">创建流程</a></li>
+      </ul>
+    </li>
+    <li><a href="#闭包">闭包</a></li>
+  </ul>
+</nav>
+  </div>
+</details>
+
+          </div>
+        </div>
+      
+      <div class="min-w-0 min-h-0 max-w-prose">
+        <h2 id="什么是作用域" class="relative group">什么是作用域 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e4%bb%80%e4%b9%88%e6%98%af%e4%bd%9c%e7%94%a8%e5%9f%9f" aria-label="锚点">#</a></span></h2>
+<p>作用域就是代码中定义变量的区域。</p>
+<p>作用域规定了当前执行代码对变量的访问权限。</p>
+<p>Javascript采用的是静态作用域。</p>
+<h3 id="静态作用域与动态作用域" class="relative group">静态作用域与动态作用域 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e9%9d%99%e6%80%81%e4%bd%9c%e7%94%a8%e5%9f%9f%e4%b8%8e%e5%8a%a8%e6%80%81%e4%bd%9c%e7%94%a8%e5%9f%9f" aria-label="锚点">#</a></span></h3>
+<p>静态作用域就是在函数定义的时候，它的作用域就被决定了。</p>
+<p>动态作用域是函数在被调用的时候，作用域才被定义。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">value</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">value</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">foo</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">bar</span><span class="p">();</span> <span class="c1">// 1
+</span></span></span></code></pre></div><p>上面的例子执行了<code>bar()</code>函数，函数里又调用了<code>foo()</code>函数，既然js是静态作用域，那么就在它定义的地方去找<code>value</code>，<code>foo()</code>函数内部没有定义<code>value</code>，就去上一层找，在全局定义了一个变量<code>value = 1</code>。</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">scope</span> <span class="o">=</span> <span class="s2">&#34;global scope&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">checkscope</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">scope</span> <span class="o">=</span> <span class="s2">&#34;local scope&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nx">f</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">scope</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">f</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">checkscope</span><span class="p">();</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">scope</span> <span class="o">=</span> <span class="s2">&#34;global scope&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">checkscope</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">scope</span> <span class="o">=</span> <span class="s2">&#34;local scope&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nx">f</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">scope</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">f</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">checkscope</span><span class="p">()();</span>
+</span></span></code></pre></div><p>上面的例子最后输出的结果都是<code>&quot;local scope&quot;</code>，因为是静态作用域，不管<code>f()</code>是在哪执行的，找的都是<code>f()</code>函数外部的那个声明变量。</p>
+<p>但这两段代码还是有明显的不一样，那就是<code>f()</code>函数的执行上下文（执行环境）不同。</p>
+<h2 id="执行上下文" class="relative group">执行上下文 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e6%89%a7%e8%a1%8c%e4%b8%8a%e4%b8%8b%e6%96%87" aria-label="锚点">#</a></span></h2>
+<p>一般会认为，Javascript代码是顺序执行的，但如果遇到下面这种情况：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;foo1&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">foo</span><span class="p">()</span> <span class="c1">// &#39;foo2&#39;
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;foo2&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">foo</span><span class="p">()</span> <span class="c1">// &#39;foo2&#39;
+</span></span></span></code></pre></div><p>我们定义了两次<code>foo()</code>，但两次执行结果都是一样的，为什么？</p>
+<p>因为JS引擎并不是一行一行对代码分析和执行的，而是一段一段地分析执行。上面的例子实际上触发了函数提升</p>
+<p>那么这个<code>一段</code>要怎么去划分呢？这就是下面需要讲到的内容了。</p>
+<h3 id="执行上下文栈" class="relative group">执行上下文栈 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e6%89%a7%e8%a1%8c%e4%b8%8a%e4%b8%8b%e6%96%87%e6%a0%88" aria-label="锚点">#</a></span></h3>
+<p>JS的可执行代码类型有三种：全局代码、函数代码、eval代码。</p>
+<p>如果执行到一个函数的时候，就会进行一个准备工作，这个准备工作就可以被认为是执行上下文。</p>
+<p>但是代码中不可能只有一个函数，为了管理这些函数的执行上下文，JS引擎创建了执行上下文栈。</p>
+<p>我们可以定义一个数组来模拟执行上下文栈的行为</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">ESCtack</span> <span class="o">=</span> <span class="p">[]</span>
+</span></span></code></pre></div><p>首先遇到的肯定是全局代码，就将全局执行上下文压入到执行上下文栈中<code>ECStack = [globalContext];</code>，全局执行上下文直到整个应用结束了才会被弹出。</p>
+<p>然后我们再回到这一节一开始的那个例子，它定义在全局，也就是那么多行代码作为<strong>一段代码</strong>被<code>globalContext</code>一起压入了执行上下文栈中。</p>
+<p>而重复声明<code>foo</code>函数，导致后面的函数覆盖了前面的，所以执行结果是一样的。为什么会覆盖呢？就得继续学习**<a href="#%E5%8F%98%E9%87%8F%E5%AF%B9%E8%B1%A1">变量对象</a>**才能理解了。这里先按下不表。</p>
+<p>我们来看另一段代码：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">fun3</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;fun3&#39;</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">fun2</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fun3</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">fun1</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fun2</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">fun1</span><span class="p">();</span>
+</span></span></code></pre></div><p>现在需要执行<code>fun1()</code>函数，这时会创建一个执行上下文并压入栈中，当要执行的时候发现函数了还调用了另一个函数<code>fun2()</code>，又要创建一个执行上下文压入栈中，但里面又调用了<code>fun3()</code>，再创建一个执行上下文压入栈中。没有其它函数代码了就开始按照后进先出的顺序执行函数，每执行一个就从栈中弹出。这段过程的伪代码可以写成这样：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// 伪代码
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="nx">ECStack</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">fun1</span><span class="o">&gt;</span> <span class="nx">functionContext</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// fun1中竟然调用了fun2，还要创建fun2的执行上下文
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">ECStack</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">fun2</span><span class="o">&gt;</span> <span class="nx">functionContext</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// 擦，fun2还调用了fun3！
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">ECStack</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">fun3</span><span class="o">&gt;</span> <span class="nx">functionContext</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// fun3执行完毕
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">ECStack</span><span class="p">.</span><span class="nx">pop</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// fun2执行完毕
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">ECStack</span><span class="p">.</span><span class="nx">pop</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// fun1执行完毕
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">ECStack</span><span class="p">.</span><span class="nx">pop</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="c1">// javascript接着执行下面的代码，但是ECStack底层永远有个globalContext
+</span></span></span></code></pre></div><p>参考上面的代码，我们给上一节最后的那两段代码写一个执行上下文栈的流程：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">ECStack</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">checkscope</span><span class="o">&gt;</span> <span class="nx">functionContext</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="nx">ECStack</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">f</span><span class="o">&gt;</span> <span class="nx">functionContext</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// f 执行完毕
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">ECStack</span><span class="p">.</span><span class="nx">pop</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// checkscope 执行完毕
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">ECStack</span><span class="p">.</span><span class="nx">pop</span><span class="p">();</span>
+</span></span></code></pre></div><div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">ECStack</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">checkscope</span><span class="o">&gt;</span> <span class="nx">functionContext</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// checkscope 执行完毕
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">ECStack</span><span class="p">.</span><span class="nx">pop</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nx">ECStack</span><span class="p">.</span><span class="nx">push</span><span class="p">(</span><span class="o">&lt;</span><span class="nx">f</span><span class="o">&gt;</span> <span class="nx">functionContext</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// f 执行完毕
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">ECStack</span><span class="p">.</span><span class="nx">pop</span><span class="p">();</span>
+</span></span></code></pre></div><h2 id="变量对象" class="relative group">变量对象 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e5%8f%98%e9%87%8f%e5%af%b9%e8%b1%a1" aria-label="锚点">#</a></span></h2>
+<p>每个执行上下文里都有个变量对象(variable object)，执行上下文中定义的所有变量和函数都保存在这个对象中，但我们无法访问这个对象。</p>
+<p>上一节有提到JS的可执行代码有三种，它们都有执行上下文，而不同执行上下文的变量对象也会有点不同。</p>
+<h3 id="全局上下文" class="relative group">全局上下文 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e5%85%a8%e5%b1%80%e4%b8%8a%e4%b8%8b%e6%96%87" aria-label="锚点">#</a></span></h3>
+<p>全局上下文的变量对象就是全局对象，也就是<code>window</code>对象。</p>
+<p>所有对象都是Object构造函数的实例，<code>window</code>对象也不例外：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span> <span class="k">instanceof</span> <span class="nb">Object</span><span class="p">);</span> <span class="c1">// true
+</span></span></span></code></pre></div><p>全局对象预定义了一堆函数和属性，可以直接调用，也可以通过<code>this</code>或<code>window</code>调用:</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// 都能生效
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">());</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nb">Math</span><span class="p">.</span><span class="nx">random</span><span class="p">());</span>
+</span></span></code></pre></div><p>全局对象是全局变量的宿主</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nb">window</span><span class="p">.</span><span class="nx">a</span><span class="p">);</span> <span class="c1">// 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">a</span><span class="p">);</span> <span class="c1">// 1
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="k">this</span><span class="p">.</span><span class="nb">window</span><span class="p">.</span><span class="nx">b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">b</span><span class="p">);</span> <span class="c1">// 2
+</span></span></span></code></pre></div><h3 id="函数上下文" class="relative group">函数上下文 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e5%87%bd%e6%95%b0%e4%b8%8a%e4%b8%8b%e6%96%87" aria-label="锚点">#</a></span></h3>
+<p>在函数上下文中，变量对象变成了活动对象(activation object, AO)，只有在进入一个执行上下文中时，这个执行上下文中的变量对象才被激活，而活动对象上的属性时可以被访问的。</p>
+<h3 id="执行流程" class="relative group">执行流程 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e6%89%a7%e8%a1%8c%e6%b5%81%e7%a8%8b" aria-label="锚点">#</a></span></h3>
+<p>上文提到，JS代码在执行前会有个准备工作，也就是生成执行上下文，然后进入执行上下文，最后再执行。</p>
+<h4 id="进入执行上下文" class="relative group">进入执行上下文 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e8%bf%9b%e5%85%a5%e6%89%a7%e8%a1%8c%e4%b8%8a%e4%b8%8b%e6%96%87" aria-label="锚点">#</a></span></h4>
+<p>这时代码并没有执行，变量对象包括：</p>
+<ol>
+<li>函数的所有形参(Arguments对象)
+<ul>
+<li>通过函数的<code>arguments</code>属性初始化，传入的所有值都会变成它的<strong>数组元素</strong></li>
+<li>由名称和对应值组成的一个变量对象的属性被创建</li>
+<li>没有实参，属性值设为<code>undefined</code></li>
+</ul>
+</li>
+<li>函数声明
+<ul>
+<li>由名称和对应值（函数对象(function-object)）组成一个变量对象的属性被创建</li>
+<li>如果变量对象已经存在相同名称的属性，则完全替换这个属性（函数提升）</li>
+</ul>
+</li>
+<li>变量声明
+<ul>
+<li>由名称和对应值（undefined）组成一个变量对象的属性被创建</li>
+<li>如果变量名称跟已经声明的形式参数或函数相同，则变量声明不会干扰已经存在的这类属性</li>
+</ul>
+</li>
+</ol>
+<p>是不是看到函数提升了？前面那个<a href="#%E6%89%A7%E8%A1%8C%E4%B8%8A%E4%B8%8B%E6%96%87">例子</a>还记得吗？声明了两次<code>foo</code>函数，后面的替换了前面的导致两次执行的结果是一样的。</p>
+<p>回到正题，再举个例子：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">foo</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="nx">b</span> <span class="o">=</span> <span class="mi">2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">function</span> <span class="nx">c</span><span class="p">()</span> <span class="p">{}</span>
+</span></span><span class="line"><span class="cl">  <span class="kd">var</span> <span class="nx">d</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{};</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl">  <span class="nx">b</span> <span class="o">=</span> <span class="mi">3</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">foo</span><span class="p">(</span><span class="mi">1</span><span class="p">);</span>
+</span></span></code></pre></div><p>进入执行上下文时的AO是这样的：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">AO</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">arguments</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="mi">0</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">length</span><span class="o">:</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">b</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">c</span><span class="o">:</span> <span class="nx">reference</span> <span class="nx">to</span> <span class="kd">function</span> <span class="nx">c</span><span class="p">(){},</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">d</span><span class="o">:</span> <span class="kc">undefined</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><h4 id="代码执行" class="relative group">代码执行 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e4%bb%a3%e7%a0%81%e6%89%a7%e8%a1%8c" aria-label="锚点">#</a></span></h4>
+<p>执行后AO的变化：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">AO</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">arguments</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="mi">0</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">length</span><span class="o">:</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">a</span><span class="o">:</span> <span class="mi">1</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">b</span><span class="o">:</span> <span class="mi">3</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">c</span><span class="o">:</span> <span class="nx">reference</span> <span class="nx">to</span> <span class="kd">function</span> <span class="nx">c</span><span class="p">(){},</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">d</span><span class="o">:</span> <span class="nx">reference</span> <span class="nx">to</span> <span class="nx">FunctionExpression</span> <span class="s2">&#34;d&#34;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>其实变量对象和活动对象是同一个对象，只是处于执行上下文的不同生命周期，在没有进入执行上下文之前是无法访问的，进入之后可以访问，执行之后属性就根据代码完成了赋值。</p>
+<h3 id="思考题" class="relative group">思考题 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e6%80%9d%e8%80%83%e9%a2%98" aria-label="锚点">#</a></span></h3>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">foo</span><span class="p">();</span> <span class="c1">// 报错
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">bar</span><span class="p">();</span> <span class="c1">// 1
+</span></span></span></code></pre></div><p>第一个函数会直接报错，因为并没有使用<code>var</code>对变量进行声明，所以不会被存放在AO当中。</p>
+<p>而第二个函数虽然也没声明，但在打印变量前，已经将变量<code>a</code>赋值给了全局对象。</p>
+<p>我们稍微改一个第一个函数：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">foo</span><span class="p">();</span> <span class="c1">// undefined
+</span></span></span></code></pre></div><p>没有报错，但输出的是<code>undefined</code>，因为声明后会被加入到AO中，这就是为什么<code>var</code>会造成变量提升，但只是声明提升了，并没有赋值。
+那如果改成这样呢：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">foo</span><span class="p">();</span> <span class="c1">// 1
+</span></span></span></code></pre></div><p>输出的是1，这是因为a是全局对象，在进入函数的执行上下文的时候就已经声明并赋值完了。</p>
+<p>再来一个例子：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">foo</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">foo</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s2">&#34;foo&#34;</span><span class="p">);</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="mi">1</span><span class="p">;</span>
+</span></span></code></pre></div><p>最终输出的是<code>foo()</code>函数，而不是1，因为进入执行上下文中时会先处理函数声明，然后才是变量声明，又如前面对变量声明对定义所说<em>如果变量名称跟已经声明的形式参数或函数相同，则变量声明不会干扰已经存在的这类属性</em>。</p>
+<h2 id="作用域链" class="relative group">作用域链 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e4%bd%9c%e7%94%a8%e5%9f%9f%e9%93%be" aria-label="锚点">#</a></span></h2>
+<p>其实在执行上下文中不仅会有变量对象，还有作用域链和<code>this</code>，这一小节就来介绍一下作用域链。</p>
+<p>前文提到，在查找变量时，首先会在当前执行上下文查找，如果没有就词法层面上的父级上下文里找，一直找到全局对象。</p>
+<p>这样由多个执行上下文变量对象构成的链表叫做作用域链。</p>
+<h3 id="创建流程" class="relative group">创建流程 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e5%88%9b%e5%bb%ba%e6%b5%81%e7%a8%8b" aria-label="锚点">#</a></span></h3>
+<p>一开始我们就有提到，JS使用的是静态作用域，当函数被定义的时候，作用域就被决定了。</p>
+<p>因为函数内部有一个<code>[[scope]]</code>属性，当函数被创建时，会自动把父级变量对象保存在里面。</p>
+<p>比如有这么一个函数：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nx">bar</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div><p>函数里面还有个函数，它们各自的[[scope]]为：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">foo</span><span class="p">.[[</span><span class="nx">scope</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">globalContext</span><span class="p">.</span><span class="nx">VO</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="nx">bar</span><span class="p">.[[</span><span class="nx">scope</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">fooContext</span><span class="p">.</span><span class="nx">AO</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">globalContext</span><span class="p">.</span><span class="nx">VO</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span></code></pre></div><p>但<code>[[scope]]</code>属性并不是完整的作用域链。</p>
+<p>当函数被激活之后，进入到执行上下文中创建VO/AO，将活动对象添加到作用域链的前端，这才是完整的作用域链：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">Scope</span> <span class="o">=</span> <span class="p">[</span><span class="nx">AO</span><span class="p">].</span><span class="nx">concat</span><span class="p">([[</span><span class="nx">scope</span><span class="p">]])</span>
+</span></span></code></pre></div><p>最后我们结合前几节的内容，加上执行上下文栈和变量对象来模拟一下它们的创建流程：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">scope</span> <span class="o">=</span> <span class="s2">&#34;global scope&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">checkscope</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">scope2</span> <span class="o">=</span> <span class="s1">&#39;local scope&#39;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">scope2</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">checkscope</span><span class="p">();</span>
+</span></span></code></pre></div><ol>
+<li>函数被创建，保存父执行上下文变量对象到<code>[[scope]]</code>属性：
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">checkscope</span><span class="p">.[[</span><span class="nx">scope</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">globalContext</span><span class="p">.</span><span class="nx">VO</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span></code></pre></div></li>
+<li>准备执行<code>checkscope</code>函数，创建执行上下文，将它压入到执行上下文栈中：
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">ECStack</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">checkscopeContext</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">globalContext</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span></code></pre></div></li>
+<li>开始做准备工作，复制<code>[[scope]]</code>属性，开始创建作用域链
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">checkscopeContext</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Scope</span><span class="o">:</span> <span class="nx">checkscope</span><span class="p">.[[</span><span class="nx">scope</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div></li>
+<li>用<code>arguments</code>创建活动对象，将其初始化，加入形参、函数声明、变量声明
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">checkscopeContext</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">AO</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">arguments</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">length</span><span class="o">:</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">scope2</span><span class="o">:</span> <span class="kc">undefined</span> <span class="c1">// 变量声明
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Scope</span><span class="o">:</span> <span class="nx">checkscope</span><span class="p">.[[</span><span class="nx">scope</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div></li>
+<li>将活动对象压入作用域顶端
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">checkscopeContext</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">AO</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">arguments</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">length</span><span class="o">:</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">scope2</span><span class="o">:</span> <span class="kc">undefined</span> <span class="c1">// 变量声明
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Scope</span><span class="o">:</span> <span class="p">[</span><span class="nx">AO</span><span class="p">,</span> <span class="nx">checkscope</span><span class="p">.[[</span><span class="nx">scope</span><span class="p">]]]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div></li>
+<li>准备工作完毕，开始执行函数，改变AO属性值
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">checkscopeContext</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">AO</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">arguments</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">length</span><span class="o">:</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">scope2</span><span class="o">:</span> <span class="s1">&#39;local scope&#39;</span> <span class="c1">// 变量声明
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span>    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Scope</span><span class="o">:</span> <span class="p">[</span><span class="nx">AO</span><span class="p">,</span> <span class="nx">checkscope</span><span class="p">.[[</span><span class="nx">scope</span><span class="p">]]]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span></code></pre></div></li>
+<li>函数执行完毕，函数执行上下文从执行上下文栈中弹出
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="nx">ECStack</span> <span class="o">=</span> <span class="p">[</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">globalContext</span>
+</span></span><span class="line"><span class="cl"><span class="p">]</span>
+</span></span></code></pre></div></li>
+</ol>
+<h2 id="闭包" class="relative group">闭包 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e9%97%ad%e5%8c%85" aria-label="锚点">#</a></span></h2>
+<p>闭包是可以访问自由变量的函数。
+啥是自由变量呢？就是指在函数中被使用，但既不是函数参数又不是函数的局部变量。</p>
+<p>又有句话说，所有JS函数都是闭包，就比如：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="nx">a</span><span class="p">)</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="nx">foo</span><span class="p">()</span>
+</span></span></code></pre></div><p><code>foo()</code>访问了全局对象里的变量<code>a</code>，再看看上面的定义，可不就是个闭包吗？</p>
+<p>理论上确实如此，但实践中的闭包却不太一样。</p>
+<p>从实践角度对闭包的定义是：</p>
+<ol>
+<li>代码中使用了自由变量；</li>
+<li>即使创建它的上下文已经销毁了，它依然存在。</li>
+</ol>
+<p>我们结合上面作用域相关的知识来理解第二点：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">scope</span> <span class="o">=</span> <span class="s2">&#34;global scope&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">checkscope</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">var</span> <span class="nx">scope</span> <span class="o">=</span> <span class="s2">&#34;local scope&#34;</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="kd">function</span> <span class="nx">f</span><span class="p">(){</span>
+</span></span><span class="line"><span class="cl">        <span class="k">return</span> <span class="nx">scope</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="k">return</span> <span class="nx">f</span><span class="p">;</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl">
+</span></span><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="nx">checkscope</span><span class="p">();</span>
+</span></span><span class="line"><span class="cl"><span class="nx">foo</span><span class="p">();</span>
+</span></span></code></pre></div><p>参考前几节用为代码来谢谢这段代码的执行流程：</p>
+<div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="c1">// 保存checkscope的父级执行上下文变量对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">checkscope</span><span class="p">.[[</span><span class="nx">scope</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="nx">global</span><span class="p">.</span><span class="nx">VO</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// checkscope执行上下文创建
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">ECStack</span> <span class="o">=</span> <span class="p">[</span><span class="nx">checkscopeContext</span><span class="p">,</span> <span class="nx">globalContext</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 进入checkscope执行上下文，先复制一份刚刚创建的不完整的作用域链
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">checkscopeContext</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Scope</span><span class="o">:</span> <span class="nx">checkscope</span><span class="p">.[[</span><span class="nx">scope</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 然后初始化AO
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">checkscopeContext</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">AO</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">arguments</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">length</span><span class="o">:</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">scope</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">f</span><span class="o">:</span> <span class="nx">reference</span> <span class="nx">to</span> <span class="kd">function</span> <span class="nx">f</span><span class="p">(){}</span> 
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Scope</span><span class="o">:</span> <span class="nx">checkscope</span><span class="p">.[[</span><span class="nx">scope</span><span class="p">]]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 把AO压入到作用域链顶端
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">checkscopeContext</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">AO</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">arguments</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">length</span><span class="o">:</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">scope</span><span class="o">:</span> <span class="kc">undefined</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">f</span><span class="o">:</span> <span class="nx">reference</span> <span class="nx">to</span> <span class="nx">FunctionExpression</span> <span class="s2">&#34;f&#34;</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Scope</span><span class="o">:</span> <span class="p">[</span><span class="nx">AO</span><span class="p">,</span> <span class="nx">checkscope</span><span class="p">.[[</span><span class="nx">scope</span><span class="p">]]]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 执行checkscope，改变AO
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">checkscopeContext</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">AO</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">arguments</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">length</span><span class="o">:</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">scope</span><span class="o">:</span> <span class="nx">local</span> <span class="nx">scope</span><span class="p">,</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">f</span><span class="o">:</span> <span class="nx">reference</span> <span class="nx">to</span> <span class="kd">function</span> <span class="nx">f</span><span class="p">(){}</span>
+</span></span><span class="line"><span class="cl">    <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Scope</span><span class="o">:</span> <span class="p">[</span><span class="nx">AO</span><span class="p">,</span> <span class="nx">checkscope</span><span class="p">.[[</span><span class="nx">scope</span><span class="p">]]]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 执行完毕，弹出执行上下文栈
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">ECStack</span> <span class="o">=</span> <span class="p">[</span><span class="nx">globalContext</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 准备执行f，保存f的父级执行上下文变量对象
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">f</span><span class="p">.[[</span><span class="nx">scope</span><span class="p">]]</span> <span class="o">=</span> <span class="p">[</span><span class="nx">checkscope</span><span class="p">.</span><span class="nx">AO</span><span class="p">,</span> <span class="nx">global</span><span class="p">.</span><span class="nx">VO</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// f的执行上下文压入执行上下文栈中
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">ECStack</span> <span class="o">=</span> <span class="p">[</span><span class="nx">fContext</span><span class="p">,</span> <span class="nx">globalContext</span><span class="p">]</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 进入checkscope执行上下文，复制一份刚刚创建的不完整的作用域链
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">fContext</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Scope</span><span class="o">:</span> <span class="p">[</span><span class="nx">f</span><span class="p">.[[</span><span class="nx">scope</span><span class="p">]]]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 初始化AO，并压入作用域链顶端
+</span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">fContext</span> <span class="o">=</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">AO</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">        <span class="nx">arguments</span><span class="o">:</span> <span class="p">{</span>
+</span></span><span class="line"><span class="cl">            <span class="nx">length</span><span class="o">:</span> <span class="mi">0</span>
+</span></span><span class="line"><span class="cl">        <span class="p">},</span>
+</span></span><span class="line"><span class="cl">    <span class="p">}</span>
+</span></span><span class="line"><span class="cl">    <span class="nx">Scope</span><span class="o">:</span> <span class="p">[</span><span class="nx">AO</span><span class="p">,</span> <span class="nx">f</span><span class="p">.[[</span><span class="nx">scope</span><span class="p">]]]</span>
+</span></span><span class="line"><span class="cl"><span class="p">}</span>
+</span></span><span class="line"><span class="cl"><span class="c1">// 后面就是执行出栈，和上面大同小异，就省略了
+</span></span></span></code></pre></div><p>写了这么多，其实就是想要看看<code>f()</code>的作用域链里包含了些啥，<code>f.[[scope]]</code>里面存放了<code>checkscope</code>函数的AO，所以<code>f()</code>执行的时候要返回的<code>scope</code>的值会在作用域链里的<code>checkscope.AO</code>中找到，这就是为什么<code>checkscopeContext</code>已经销毁了，但依然能访问到里面的变量对象。这就是所谓的闭包！</p>
+
+      </div>
+    </section>
+    <footer class="pt-8 max-w-prose print:hidden">
+      
+  <div class="flex">
+    
+      
+      
+        
+        <img
+          class="w-24 h-24 !mt-0 !mb-0 ltr:mr-4 rtl:ml-4 rounded-full"
+          width="96"
+          height="96"
+          alt="Helene Woods"
+          src="/img/avatar_hu99a8825df5371615fd07387c9845d6ab_188260_192x192_fill_q75_box_smart1.jpg"
+        />
+      
+    
+    <div class="place-self-center">
+      
+        <div class="text-[0.6rem] leading-3 text-neutral-500 dark:text-neutral-400 uppercase">
+          作者
+        </div>
+        <div class="font-semibold leading-6 text-neutral-800 dark:text-neutral-300">
+          Helene Woods
+        </div>
+      
+      
+      <div class="text-2xl sm:text-lg">
+  <div class="flex flex-wrap text-neutral-400 dark:text-neutral-500">
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="mailto:396293674@qq.com"
+          target="_blank"
+          aria-label="Email"
+          rel="me noopener noreferrer"
+          >
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="currentColor" d="M207.8 20.73c-93.45 18.32-168.7 93.66-187 187.1c-27.64 140.9 68.65 266.2 199.1 285.1c19.01 2.888 36.17-12.26 36.17-31.49l.0001-.6631c0-15.74-11.44-28.88-26.84-31.24c-84.35-12.98-149.2-86.13-149.2-174.2c0-102.9 88.61-185.5 193.4-175.4c91.54 8.869 158.6 91.25 158.6 183.2l0 16.16c0 22.09-17.94 40.05-40 40.05s-40.01-17.96-40.01-40.05v-120.1c0-8.847-7.161-16.02-16.01-16.02l-31.98 .0036c-7.299 0-13.2 4.992-15.12 11.68c-24.85-12.15-54.24-16.38-86.06-5.106c-38.75 13.73-68.12 48.91-73.72 89.64c-9.483 69.01 43.81 128 110.9 128c26.44 0 50.43-9.544 69.59-24.88c24 31.3 65.23 48.69 109.4 37.49C465.2 369.3 496 324.1 495.1 277.2V256.3C495.1 107.1 361.2-9.332 207.8 20.73zM239.1 304.3c-26.47 0-48-21.56-48-48.05s21.53-48.05 48-48.05s48 21.56 48 48.05S266.5 304.3 239.1 304.3z"/></svg>
+
+  </span>
+
+</a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://helenewoods.github.io/"
+          target="_blank"
+          aria-label="Blogger"
+          rel="me noopener noreferrer"
+          >
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M446.6 222.7c-1.8-8-6.8-15.4-12.5-18.5-1.8-1-13-2.2-25-2.7-20.1-.9-22.3-1.3-28.7-5-10.1-5.9-12.8-12.3-12.9-29.5-.1-33-13.8-63.7-40.9-91.3-19.3-19.7-40.9-33-65.5-40.5-5.9-1.8-19.1-2.4-63.3-2.9-69.4-.8-84.8.6-108.4 10C45.9 59.5 14.7 96.1 3.3 142.9 1.2 151.7.7 165.8.2 246.8c-.6 101.5.1 116.4 6.4 136.5 15.6 49.6 59.9 86.3 104.4 94.3 14.8 2.7 197.3 3.3 216 .8 32.5-4.4 58-17.5 81.9-41.9 17.3-17.7 28.1-36.8 35.2-62.1 4.9-17.6 4.5-142.8 2.5-151.7zm-322.1-63.6c7.8-7.9 10-8.2 58.8-8.2 43.9 0 45.4.1 51.8 3.4 9.3 4.7 13.4 11.3 13.4 21.9 0 9.5-3.8 16.2-12.3 21.6-4.6 2.9-7.3 3.1-50.3 3.3-26.5.2-47.7-.4-50.8-1.2-16.6-4.7-22.8-28.5-10.6-40.8zm191.8 199.8l-14.9 2.4-77.5.9c-68.1.8-87.3-.4-90.9-2-7.1-3.1-13.8-11.7-14.9-19.4-1.1-7.3 2.6-17.3 8.2-22.4 7.1-6.4 10.2-6.6 97.3-6.7 89.6-.1 89.1-.1 97.6 7.8 12.1 11.3 9.5 31.2-4.9 39.4z"/></svg>
+
+  </span>
+
+</a
+        >
+      
+    
+      
+        <a
+          class="px-1 hover:text-primary-700 dark:hover:text-primary-400"
+          href="https://github.com/HeleneWoods"
+          target="_blank"
+          aria-label="Github"
+          rel="me noopener noreferrer"
+          >
+
+  <span class="relative inline-block align-text-bottom icon">
+    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 496 512"><path fill="currentColor" d="M165.9 397.4c0 2-2.3 3.6-5.2 3.6-3.3.3-5.6-1.3-5.6-3.6 0-2 2.3-3.6 5.2-3.6 3-.3 5.6 1.3 5.6 3.6zm-31.1-4.5c-.7 2 1.3 4.3 4.3 4.9 2.6 1 5.6 0 6.2-2s-1.3-4.3-4.3-5.2c-2.6-.7-5.5.3-6.2 2.3zm44.2-1.7c-2.9.7-4.9 2.6-4.6 4.9.3 2 2.9 3.3 5.9 2.6 2.9-.7 4.9-2.6 4.6-4.6-.3-1.9-3-3.2-5.9-2.9zM244.8 8C106.1 8 0 113.3 0 252c0 110.9 69.8 205.8 169.5 239.2 12.8 2.3 17.3-5.6 17.3-12.1 0-6.2-.3-40.4-.3-61.4 0 0-70 15-84.7-29.8 0 0-11.4-29.1-27.8-36.6 0 0-22.9-15.7 1.6-15.4 0 0 24.9 2 38.6 25.8 21.9 38.6 58.6 27.5 72.9 20.9 2.3-16 8.8-27.1 16-33.7-55.9-6.2-112.3-14.3-112.3-110.5 0-27.5 7.6-41.3 23.6-58.9-2.6-6.5-11.1-33.3 2.6-67.9 20.9-6.5 69 27 69 27 20-5.6 41.5-8.5 62.8-8.5s42.8 2.9 62.8 8.5c0 0 48.1-33.6 69-27 13.7 34.7 5.2 61.4 2.6 67.9 16 17.7 25.8 31.5 25.8 58.9 0 96.5-58.9 104.2-114.8 110.5 9.2 7.9 17 22.9 17 46.4 0 33.7-.3 75.4-.3 83.6 0 6.5 4.6 14.4 17.3 12.1C428.2 457.8 496 362.9 496 252 496 113.3 383.5 8 244.8 8zM97.2 352.9c-1.3 1-1 3.3.7 5.2 1.6 1.6 3.9 2.3 5.2 1 1.3-1 1-3.3-.7-5.2-1.6-1.6-3.9-2.3-5.2-1zm-10.8-8.1c-.7 1.3.3 2.9 2.3 3.9 1.6 1 3.6.7 4.3-.7.7-1.3-.3-2.9-2.3-3.9-2-.6-3.6-.3-4.3.7zm32.4 35.6c-1.6 1.3-1 4.3 1.3 6.2 2.3 2.3 5.2 2.6 6.5 1 1.3-1.3.7-4.3-1.3-6.2-2.2-2.3-5.2-2.6-6.5-1zm-11.4-14.7c-1.6 1-1.6 3.6 0 5.9 1.6 2.3 4.3 3.3 5.6 2.3 1.6-1.3 1.6-3.9 0-6.2-1.4-2.3-4-3.3-5.6-2z"/></svg>
+
+  </span>
+
+</a
+        >
+      
+    
+  </div>
+
+</div>
+    </div>
+  </div>
+
+
+      
+
+      
+  
+    
+    
+    
+    <div class="pt-8">
+      <hr class="border-dotted border-neutral-300 dark:border-neutral-600" />
+      <div class="flex justify-between pt-3">
+        <span>
+          
+            <a class="flex group" href="/posts/prototype/">
+              <span
+                class="mr-3 ltr:inline rtl:hidden text-neutral-700 dark:text-neutral group-hover:text-primary-600 dark:group-hover:text-primary-400"
+                >&larr;</span
+              >
+              <span
+                class="ml-3 ltr:hidden rtl:inline text-neutral-700 dark:text-neutral group-hover:text-primary-600 dark:group-hover:text-primary-400"
+                >&rarr;</span
+              >
+              <span class="flex flex-col">
+                <span
+                  class="mt-[0.1rem] leading-6 group-hover:underline group-hover:decoration-primary-500"
+                  >JS基础之原型</span
+                >
+                <span class="mt-[0.1rem] text-xs text-neutral-500 dark:text-neutral-400">
+                  
+                    <time datetime="2022-11-04 13:24:17 &#43;0800 CST">4 十一月 2022</time>
+                  
+                </span>
+              </span>
+            </a>
+          
+        </span>
+        <span>
+          
+        </span>
+      </div>
+    </div>
+  
+
+
+      
+    </footer>
+  </article>
+
+        
+          <div
+            class="absolute top-[100vh] ltr:right-0 rtl:left-0 w-12 pointer-events-none bottom-0"
+          >
+            <a
+              href="#the-top"
+              class="w-12 h-12 sticky pointer-events-auto top-[calc(100vh-5.5rem)] bg-neutral/50 dark:bg-neutral-800/50 backdrop-blur rounded-full text-xl flex items-center justify-center text-neutral-700 dark:text-neutral hover:text-primary-600 dark:hover:text-primary-400"
+              aria-label="Scroll to top"
+              title="Scroll to top"
+            >
+              &uarr;
+            </a>
+          </div>
+        
+      </main><footer class="py-10 print:hidden">
+  
+  
+  <div class="flex items-center justify-between">
+    <div>
+      
+      
+        <p class="text-sm text-neutral-500 dark:text-neutral-400">
+            &copy;
+            2022
+            Helene Woods
+        </p>
+      
+      
+      
+        <p class="text-xs text-neutral-500 dark:text-neutral-400">
+          
+          
+          由 <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500"
+            href="https://gohugo.io/" target="_blank" rel="noopener noreferrer">Hugo</a> &amp; <a class="hover:underline hover:decoration-primary-400 hover:text-primary-500" href="https://git.io/hugo-congo" target="_blank" rel="noopener noreferrer">Congo</a> 强力驱动
+        </p>
+      
+    </div>
+    
+    
+  </div>
+  
+  
+</footer>
+
+    </div>
+  </body>
+</html>

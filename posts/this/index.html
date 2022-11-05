@@ -444,7 +444,7 @@
 <h3 id="绑定规则优先级" class="relative group">绑定规则优先级 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e7%bb%91%e5%ae%9a%e8%a7%84%e5%88%99%e4%bc%98%e5%85%88%e7%ba%a7" aria-label="锚点">#</a></span></h3>
 <p>默认绑定 &lt; 隐式绑定 &lt; 显示绑定 &lt; new绑定</p>
 <h3 id="箭头函数" class="relative group">箭头函数 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e7%ae%ad%e5%a4%b4%e5%87%bd%e6%95%b0" aria-label="锚点">#</a></span></h3>
-<p>箭头函数的this指向是最特殊的，它是根据调用函数的上下文决定this指向的。</p>
+<p>箭头函数的this指向是最特殊的，它本身没有this，只能通过查找作用域链获得this值，所以它根据执行上下文决定this指向的。</p>
 <div class="highlight"><pre tabindex="0" class="chroma"><code class="language-js" data-lang="js"><span class="line"><span class="cl"><span class="kd">var</span> <span class="nx">a</span> <span class="o">=</span> <span class="mi">1</span>
 </span></span><span class="line"><span class="cl"><span class="kd">function</span> <span class="nx">foo</span><span class="p">()</span> <span class="p">{</span>
 </span></span><span class="line"><span class="cl">    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">&#39;foo&#39;</span><span class="p">,</span> <span class="k">this</span><span class="p">.</span><span class="nx">a</span><span class="p">)</span>
@@ -458,7 +458,7 @@
 </span></span><span class="line"><span class="cl"><span class="p">}</span>
 </span></span><span class="line"><span class="cl"><span class="nx">boo</span><span class="p">.</span><span class="nx">foo</span><span class="p">()</span>  <span class="c1">// 2
 </span></span></span><span class="line"><span class="cl"><span class="c1"></span><span class="nx">boo</span><span class="p">.</span><span class="nx">fn</span><span class="p">()</span> <span class="c1">// 1
-</span></span></span></code></pre></div><p><code>foo()</code>this指向<code>boo</code>对象，而<code>fn()</code>this指向的是window，虽然<code>fn()</code>是被<code>boo</code>调用的，但调用位置在全局作用域。</p>
+</span></span></span></code></pre></div><p><code>foo()</code>this指向<code>boo</code>对象，而<code>fn()</code>this指向的是window，虽然<code>fn()</code>是被<code>boo</code>调用的，但它需要获取<code>boo</code>的this指向，就是window。</p>
 <h3 id="其它意外" class="relative group">其它意外 <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e5%85%b6%e5%ae%83%e6%84%8f%e5%a4%96" aria-label="锚点">#</a></span></h3>
 <h4 id="被忽略的this" class="relative group">被忽略的this <span class="absolute top-0 w-6 transition-opacity opacity-0 ltr:-left-6 rtl:-right-6 not-prose group-hover:opacity-100"><a class="group-hover:text-primary-300 dark:group-hover:text-neutral-700" style="text-decoration-line: none !important;" href="#%e8%a2%ab%e5%bf%bd%e7%95%a5%e7%9a%84this" aria-label="锚点">#</a></span></h4>
 <p>当使用call、apply或bind方法显示绑定this时，如果传入的值是<code>null</code>、<code>undefined</code>，this还是会指向全局。</p>

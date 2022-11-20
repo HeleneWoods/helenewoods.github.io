@@ -464,7 +464,7 @@
 </span></span><span class="line"><span class="cl">      <span class="cm">/*
 </span></span></span><span class="line"><span class="cl"><span class="cm">        parseValues是这个库最核心的计算方法，当监听到滚动事件时就会调用这个方法
 </span></span></span><span class="line"><span class="cl"><span class="cm">        在这个方法中不仅会设置相应的style属性值
-</span></span></span><span class="line"><span class="cl"><span class="cm">        并且当属性值发生变化的时候会将自定义tg事件通过dispatchEvent方法派发到监听到元素上
+</span></span></span><span class="line"><span class="cl"><span class="cm">        并且当属性值发生变化的时候会将自定义tg事件通过el.dispatchEvent方法派发到监听的元素上
 </span></span></span><span class="line"><span class="cl"><span class="cm">      */</span> 
 </span></span><span class="line"><span class="cl">      <span class="nx">parseValues</span><span class="p">(</span><span class="nx">allElements</span><span class="p">);</span>
 </span></span><span class="line"><span class="cl">    <span class="p">});</span>
